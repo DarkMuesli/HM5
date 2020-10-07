@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">HM5</string>
+    <string name="app_name" translatable="false">HM5</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="mixup_button">Mix it up!</string>
+    <string name="tonality_test" translatable="false">C</string>
+    <string name="exercise_test">Collier\'s V-I Progression</string>
+    <string-array name="tonalities">
+        <item>C</item>
+        <item>Db</item>
+        <item>D</item>
+        <item>Eb</item>
+        <item>E</item>
+        <item>F</item>
+        <item>F#/Gb</item>
+        <item>G</item>
+        <item>Ab</item>
+        <item>A</item>
+        <item>Bb</item>
+        <item>B</item>
+    </string-array>
 </resources>

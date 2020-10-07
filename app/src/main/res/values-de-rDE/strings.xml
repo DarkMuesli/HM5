@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mixup_button">Neu mischen!</string>
+    <string name="exercise_test">Collier\'sche V-I Progression</string>
+    <string-array name="tonalities">
+        <item>C</item>
+        <item>Db</item>
+        <item>D</item>
+        <item>Eb</item>
+        <item>E</item>
+        <item>F</item>
+        <item>F#/Gb</item>
+        <item>G</item>
+        <item>Ab</item>
+        <item>A</item>
+        <item>B</item>
+        <item>H</item>
+    </string-array>
+</resources>
