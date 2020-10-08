@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -15,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onButtonPress(view: View) {
-        val tonalityText = findViewById<TextView>(R.id.tonality_text)
+        val tonalityText = findViewById<TextView>(R.id.tonalityTextView)
         val exerciseText = findViewById<TextView>(R.id.exerciseTextView)
 
         val tonalities = resources.getStringArray(R.array.tonalities)
