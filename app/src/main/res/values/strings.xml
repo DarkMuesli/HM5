@@ -4,6 +4,7 @@
     <string name="mixup_button">Mix it up!</string>
     <string name="tonality_test" translatable="false">C</string>
     <string name="exercise_test">Collier\'s V-I Progression</string>
+    <string name="exerciseButtonText">Exercise!</string>
     <string-array name="tonalities">
         <item>C</item>
         <item>Db</item>

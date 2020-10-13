@@ -1,26 +1,18 @@
 package de.darkmuesli.hm5
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import kotlin.math.abs
-import kotlin.random.Random
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        exerciseCard.setOnClickListener {
+            startActivity(Intent(this, ExerciseActivity::class.java))
+        }
     }
 
-    fun onButtonPress(view: View) {
-        val tonalityText = findViewById<TextView>(R.id.tonalityTextView)
-        val exerciseText = findViewById<TextView>(R.id.exerciseTextView)
-
-        val tonalities = resources.getStringArray(R.array.tonalities)
-        val exercises = resources.getStringArray(R.array.exercises)
-
-        tonalityText.text = tonalities[abs(Random.nextInt() % tonalities.size)]
-        exerciseText.text = exercises[abs(Random.nextInt() % exercises.size)]
-    }
 }
