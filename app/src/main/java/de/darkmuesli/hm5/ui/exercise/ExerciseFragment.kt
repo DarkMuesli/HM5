@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import de.darkmuesli.hm5.R
+import kotlinx.android.synthetic.main.exercise_fragment.*
 
 class ExerciseFragment : Fragment() {
 
@@ -23,7 +23,7 @@ class ExerciseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exerciseViewModel.currentExercise.observe(viewLifecycleOwner, { exercise ->
-            view.findViewById<TextView>(R.id.exerciseTextView).text = exercise
+            exerciseTextView.text = exercise
         })
     }
 
