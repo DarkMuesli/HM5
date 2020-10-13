@@ -25,5 +25,19 @@ class TonalityFragment : Fragment() {
         exerciseViewModel.currentTonality.observe(viewLifecycleOwner, { tonality ->
             tonalityTextView.text = tonality
         })
+
+        exerciseViewModel.tonalityLocked.observe(viewLifecycleOwner) { locked ->
+            if (locked) {
+                tonalityUnlockedIcon.visibility = View.INVISIBLE
+                tonalityLockedIcon.visibility = View.VISIBLE
+            } else {
+                tonalityUnlockedIcon.visibility = View.VISIBLE
+                tonalityLockedIcon.visibility = View.INVISIBLE
+            }
+        }
+
+        tonalityCard.setOnClickListener {
+            exerciseViewModel.tonalityLocked.value = exerciseViewModel.tonalityLocked.value?.not()
+        }
     }
 }

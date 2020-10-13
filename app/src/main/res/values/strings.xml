@@ -5,6 +5,10 @@
     <string name="tonality_test" translatable="false">C</string>
     <string name="exercise_test">Collier\'s V-I Progression</string>
     <string name="exerciseButtonText">Exercise!</string>
+    <string name="exerciseLockedIcon" translatable="false">Excercise fragment locked indicator</string>
+    <string name="exerciseUnlockedIcon" translatable="false">Exercise fragment unlocked indicator</string>
+    <string name="tonalityLockedIcon" translatable="false">Tonality fragment locked indicator</string>
+    <string name="tonalityUnlockedIcon" translatable="false">Tonality fragment unlocked indicator</string>
     <string-array name="tonalities">
         <item>C</item>
         <item>Db</item>

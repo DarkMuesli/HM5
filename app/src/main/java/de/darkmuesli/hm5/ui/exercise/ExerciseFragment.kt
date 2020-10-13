@@ -22,9 +22,24 @@ class ExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        exerciseViewModel.currentExercise.observe(viewLifecycleOwner, { exercise ->
+        exerciseViewModel.currentExercise.observe(viewLifecycleOwner) { exercise ->
             exerciseTextView.text = exercise
-        })
+        }
+
+        exerciseViewModel.exerciseLocked.observe(viewLifecycleOwner) { locked ->
+            if (locked) {
+                exerciseUnlockedIcon.visibility = View.INVISIBLE
+                exerciseLockedIcon.visibility = View.VISIBLE
+            } else {
+                exerciseUnlockedIcon.visibility = View.VISIBLE
+                exerciseLockedIcon.visibility = View.INVISIBLE
+            }
+        }
+
+        exerciseCard.setOnClickListener {
+            exerciseViewModel.exerciseLocked.value = exerciseViewModel.exerciseLocked.value?.not()
+        }
     }
+
 
 }
