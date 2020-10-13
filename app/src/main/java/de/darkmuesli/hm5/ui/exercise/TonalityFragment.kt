@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import de.darkmuesli.hm5.R
-import kotlinx.android.synthetic.main.tonality_fragment.*
 
 class TonalityFragment : Fragment() {
 
@@ -23,7 +23,7 @@ class TonalityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exerciseViewModel.currentTonality.observe(viewLifecycleOwner, { tonality ->
-            tonalityTextView.text = tonality
+            view.findViewById<TextView>(R.id.tonalityTextView).text = tonality
         })
     }
 }
