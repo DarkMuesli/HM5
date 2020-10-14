@@ -9,6 +9,7 @@
     <string name="exerciseUnlockedIcon" translatable="false">Exercise fragment unlocked indicator</string>
     <string name="tonalityLockedIcon" translatable="false">Tonality fragment locked indicator</string>
     <string name="tonalityUnlockedIcon" translatable="false">Tonality fragment unlocked indicator</string>
+    <string name="exerciseAddIcon" translatable="false">Add exercise icon</string>
     <string-array name="tonalities">
         <item>C</item>
         <item>Db</item>

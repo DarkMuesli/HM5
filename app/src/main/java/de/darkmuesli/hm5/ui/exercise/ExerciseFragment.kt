@@ -1,9 +1,12 @@
 package de.darkmuesli.hm5.ui.exercise
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import de.darkmuesli.hm5.R
@@ -39,7 +42,22 @@ class ExerciseFragment : Fragment() {
         exerciseCard.setOnClickListener {
             exerciseViewModel.exerciseLocked.value = exerciseViewModel.exerciseLocked.value?.not()
         }
-    }
 
+        exerciseAddIcon.setOnClickListener {
+            val builder = AlertDialog.Builder(activity).apply { setTitle("Add Exercise") }
+            val input = EditText(activity).apply { inputType = InputType.TYPE_CLASS_TEXT }
+            with(builder) {
+                setView(input)
+                setPositiveButton("OK") { _, _ ->
+                    exerciseViewModel.addExercise(input.text.toString())
+                }
+                setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.cancel()
+                }
+                show()
+            }
+        }
+
+    }
 
 }
