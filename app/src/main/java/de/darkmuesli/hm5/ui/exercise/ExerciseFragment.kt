@@ -24,7 +24,7 @@ class ExerciseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exerciseViewModel.currentExercise.observe(viewLifecycleOwner) { exercise ->
-            exerciseTextView.text = exercise
+            exerciseTextView.text = exercise?.name ?: context?.getString(R.string.no_exercise_found_error)
         }
 
         exerciseViewModel.exerciseLocked.observe(viewLifecycleOwner) { locked ->

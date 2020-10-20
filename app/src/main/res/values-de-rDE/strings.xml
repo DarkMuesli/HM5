@@ -3,6 +3,7 @@
     <string name="mixup_button">Neu mischen!</string>
     <string name="exercise_test">Collier\'sche V-I Progression</string>
     <string name="exerciseButtonText">Exercise!</string>
+    <string name="no_exercise_found_error">Keine aktiven Übungen gefunden.</string>
     <string-array name="tonalities">
         <item>C</item>
         <item>Db</item>

@@ -10,6 +10,7 @@
     <string name="tonalityLockedIcon" translatable="false">Tonality fragment locked indicator</string>
     <string name="tonalityUnlockedIcon" translatable="false">Tonality fragment unlocked indicator</string>
     <string name="exerciseListIcon" translatable="false">Exercise list icon</string>
+    <string name="no_exercise_found_error">No active exercises found.</string>
     <string-array name="tonalities">
         <item>C</item>
         <item>Db</item>

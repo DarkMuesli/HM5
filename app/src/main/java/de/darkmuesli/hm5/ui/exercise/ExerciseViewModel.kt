@@ -8,6 +8,8 @@ import de.darkmuesli.hm5.R
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val exerciseRepository = ExerciseRepository(application.resources)
+
     val exerciseLocked: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
     }
@@ -16,9 +18,9 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         MutableLiveData<Boolean>(false)
     }
 
-    val exercises: MutableLiveData<MutableList<String>> by lazy {
-        MutableLiveData<MutableList<String>>(
-            application.resources.getStringArray(R.array.exercises).toMutableList()
+    val exercises: MutableLiveData<MutableList<Exercise>> by lazy {
+        MutableLiveData<MutableList<Exercise>>(
+            exerciseRepository.getExercises()
         )
     }
 
@@ -28,9 +30,9 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         )
     }
 
-    val currentExercise: MutableLiveData<String> by lazy {
-        MutableLiveData<String>(
-            exercises.value?.randomOrNull()
+    val currentExercise: MutableLiveData<Exercise?> by lazy {
+        MutableLiveData<Exercise?>(
+            exercises.value?.filter { it.active }?.randomOrNull()
         )
     }
 
@@ -42,7 +44,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     fun randomizeExercise() {
         if (exerciseLocked.value != true)
-            currentExercise.value = exercises.value?.randomOrNull()
+            currentExercise.value = exercises.value?.filter { it.active }?.randomOrNull()
     }
 
     fun randomizeTonality() {
@@ -50,7 +52,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
             currentTonality.value = tonalities.value?.randomOrNull()
     }
 
-    fun addExercise(exercise: String) {
+    fun addExercise(exercise: Exercise) {
         exercises.value = exercises.value?.apply { add(exercise) }
         currentExercise.value = exercise
     }
