@@ -17,8 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExerciseActivity"
+            android:name=".ui.exercise.ExerciseActivity"
             android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".ui.exercise.ExerciseListActivity"
+            android:parentActivityName=".ui.exercise.ExerciseActivity">
         </activity>
     </application>
 

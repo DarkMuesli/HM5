@@ -1,10 +1,10 @@
-package de.darkmuesli.hm5
+package de.darkmuesli.hm5.ui.exercise
 
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import de.darkmuesli.hm5.ui.exercise.ExerciseViewModel
+import de.darkmuesli.hm5.R
 
 class ExerciseActivity : AppCompatActivity() {
 

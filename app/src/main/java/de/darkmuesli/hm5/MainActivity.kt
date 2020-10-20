@@ -3,6 +3,7 @@ package de.darkmuesli.hm5
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import de.darkmuesli.hm5.ui.exercise.ExerciseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
