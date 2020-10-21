@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.darkmuesli.hm5.R
 import kotlinx.android.synthetic.main.activity_exercise_list.*
+
 
 class ExerciseListActivity : AppCompatActivity(), ExerciseRecyclerViewAdapter.ItemClickListener {
 
@@ -21,7 +23,16 @@ class ExerciseListActivity : AppCompatActivity(), ExerciseRecyclerViewAdapter.It
             this,
             exerciseViewModel.exercises.value.orEmpty().toMutableList()
         )
-        exerciseRecyclerView.layoutManager = LinearLayoutManager(this)
+        val mLayoutManager = LinearLayoutManager(this)
+        exerciseRecyclerView.layoutManager = mLayoutManager
+
+        exerciseRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                exerciseRecyclerView.context,
+                mLayoutManager.orientation
+            )
+        )
+
         adapter.setClickListener(this)
         exerciseRecyclerView.adapter = adapter
         exerciseViewModel.exercises.observe(this) {
