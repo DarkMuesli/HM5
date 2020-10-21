@@ -8,7 +8,7 @@ import de.darkmuesli.hm5.R
 
 class ExerciseViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val exerciseRepository = ExerciseRepository(application.resources)
+    private val exerciseRepository = ExerciseRepository(application)
 
     val exerciseLocked: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
@@ -55,6 +55,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
     fun addExercise(exercise: Exercise) {
         exercises.value = exercises.value?.apply { add(exercise) }
         currentExercise.value = exercise
+        exerciseRepository.saveExercises(exercises.value.orEmpty())
     }
 
 }

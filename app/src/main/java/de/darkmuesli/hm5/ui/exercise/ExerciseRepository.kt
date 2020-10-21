@@ -1,14 +1,38 @@
 package de.darkmuesli.hm5.ui.exercise
 
-import android.content.res.Resources
+import android.content.Context
+import de.darkmuesli.hm5.R
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
-class ExerciseRepository(resources: Resources?) {
-    fun getExercises(): MutableList<Exercise>? {
-        val ex1 = Exercise("Mario Kadenz")
-        val ex2 = Exercise("Bla")
-        val ex3 = Exercise("Blub")
+class ExerciseRepository(val context: Context) {
 
-        return mutableListOf(ex1, ex2, ex3)
+    private val filename = "exercises.json"
+
+    fun getExercises(): MutableList<Exercise> {
+        if (filename in context.fileList()) {
+            context.openFileInput(filename).bufferedReader().useLines { lines ->
+                lines.fold("") { acc, next ->
+                    acc + next
+                }
+            }.also {
+                return if (it.isEmpty() || it.isBlank())
+                    mutableListOf()
+                else
+                    Json.decodeFromString(it)
+            }
+        } else
+            return context.resources.getStringArray(R.array.exercises)
+                .map { Exercise(it) }
+                .toMutableList()
     }
+
+    fun saveExercises(list: List<Exercise>) {
+        context.openFileOutput(filename, Context.MODE_PRIVATE).use {
+            it.write(Json.encodeToString(list).toByteArray())
+        }
+    }
+
 
 }

@@ -1,10 +1,12 @@
 package de.darkmuesli.hm5.ui.exercise
 
-import android.content.Intent
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import de.darkmuesli.hm5.R
@@ -24,7 +26,8 @@ class ExerciseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exerciseViewModel.currentExercise.observe(viewLifecycleOwner) { exercise ->
-            exerciseTextView.text = exercise?.name ?: context?.getString(R.string.no_exercise_found_error)
+            exerciseTextView.text =
+                exercise?.name ?: context?.getString(R.string.no_exercise_found_error)
         }
 
         exerciseViewModel.exerciseLocked.observe(viewLifecycleOwner) { locked ->
@@ -42,19 +45,19 @@ class ExerciseFragment : Fragment() {
         }
 
         exerciseListIcon.setOnClickListener {
-            startActivity(Intent(activity, ExerciseListActivity::class.java))
-//            val builder = AlertDialog.Builder(activity).apply { setTitle("Add Exercise") }
-//            val input = EditText(activity).apply { inputType = InputType.TYPE_CLASS_TEXT }
-//            with(builder) {
-//                setView(input)
-//                setPositiveButton("OK") { _, _ ->
-//                    exerciseViewModel.addExercise(input.text.toString())
-//                }
-//                setNegativeButton("Cancel") { dialog, _ ->
-//                    dialog.cancel()
-//                }
-//                show()
-//            }
+//            startActivity(Intent(activity, ExerciseListActivity::class.java))
+            val builder = AlertDialog.Builder(activity).apply { setTitle("Add Exercise") }
+            val input = EditText(activity).apply { inputType = InputType.TYPE_CLASS_TEXT }
+            with(builder) {
+                setView(input)
+                setPositiveButton("OK") { _, _ ->
+                    exerciseViewModel.addExercise(Exercise(input.text.toString()))
+                }
+                setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.cancel()
+                }
+                show()
+            }
         }
 
     }
