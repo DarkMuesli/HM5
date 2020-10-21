@@ -58,4 +58,10 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         exerciseRepository.saveExercises(exercises.value.orEmpty())
     }
 
+    fun toggleExercise(index: Int) {
+        exercises.value?.get(index)?.apply { active = !active }
+        exercises.value = exercises.value
+        exerciseRepository.saveExercises(exercises.value.orEmpty())
+    }
+
 }

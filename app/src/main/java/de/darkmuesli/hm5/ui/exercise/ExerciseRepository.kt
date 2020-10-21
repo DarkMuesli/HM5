@@ -1,6 +1,7 @@
 package de.darkmuesli.hm5.ui.exercise
 
 import android.content.Context
+import android.util.Log
 import de.darkmuesli.hm5.R
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -29,6 +30,7 @@ class ExerciseRepository(val context: Context) {
     }
 
     fun saveExercises(list: List<Exercise>) {
+        Log.i("I/O", "Saving Exercise List")
         context.openFileOutput(filename, Context.MODE_PRIVATE).use {
             it.write(Json.encodeToString(list).toByteArray())
         }
