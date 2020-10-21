@@ -44,18 +44,6 @@ class ExerciseFragment : Fragment() {
 
         exerciseListIcon.setOnClickListener {
             startActivity(Intent(activity, ExerciseListActivity::class.java))
-//            val builder = AlertDialog.Builder(activity).apply { setTitle("Add Exercise") }
-//            val input = EditText(activity).apply { inputType = InputType.TYPE_CLASS_TEXT }
-//            with(builder) {
-//                setView(input)
-//                setPositiveButton("OK") { _, _ ->
-//                    exerciseViewModel.addExercise(Exercise(input.text.toString()))
-//                }
-//                setNegativeButton("Cancel") { dialog, _ ->
-//                    dialog.cancel()
-//                }
-//                show()
-//            }
         }
 
     }

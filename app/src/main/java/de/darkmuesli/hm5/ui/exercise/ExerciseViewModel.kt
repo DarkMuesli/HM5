@@ -58,6 +58,11 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
         exerciseRepository.saveExercises(exercises.value.orEmpty())
     }
 
+    fun removeExercise(index: Int) {
+        exercises.value = exercises.value?.apply { removeAt(index) }
+        exerciseRepository.saveExercises(exercises.value.orEmpty())
+    }
+
     fun toggleExercise(index: Int) {
         exercises.value?.get(index)?.apply { active = !active }
         exercises.value = exercises.value

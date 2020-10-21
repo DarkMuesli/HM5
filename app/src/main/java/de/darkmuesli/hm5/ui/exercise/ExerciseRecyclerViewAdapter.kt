@@ -1,7 +1,6 @@
 package de.darkmuesli.hm5.ui.exercise
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,8 @@ import kotlinx.android.synthetic.main.exercice_rv_row.view.*
 class ExerciseRecyclerViewAdapter(val context: Context, var data: MutableList<Exercise>) :
     RecyclerView.Adapter<ExerciseRecyclerViewAdapter.ViewHolder>() {
 
-    private var mClickListener: ItemClickListener? = null
+    private var mSwitchClickListener: ItemSwitchClickListener? = null
+    private var mRemoveIconClickListener: ItemRemoveIconClickListener? = null
 
     private val mInflater = LayoutInflater.from(context)
 
@@ -22,21 +22,22 @@ class ExerciseRecyclerViewAdapter(val context: Context, var data: MutableList<Ex
         )
     )
 
-    inner class ViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            itemView.exercise_switch.setOnClickListener(this)
+            itemView.exercise_switch.setOnClickListener {
+                if (mSwitchClickListener != null)
+                    mSwitchClickListener?.onItemSwitchClick(it, adapterPosition)
+            }
+            itemView.remove_icon.setOnClickListener {
+                if (mRemoveIconClickListener != null)
+                    mRemoveIconClickListener?.onItemRemoveIconClick(it, adapterPosition)
+
+            }
         }
 
         fun getMyItemView() = itemView
-
-        override fun onClick(v: View) {
-            if (mClickListener != null) {
-                mClickListener?.onItemClick(v, adapterPosition)
-            }
-
-        }
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.getMyItemView().exercise_switch.text = data[position].name
@@ -47,15 +48,20 @@ class ExerciseRecyclerViewAdapter(val context: Context, var data: MutableList<Ex
 
     fun getItem(position: Int) = data[position]
 
-    fun setClickListener(itemClickListener: ItemClickListener) {
-        mClickListener = itemClickListener
-
-        Log.w("MyTag", "itemClickListenet set")
+    fun setSwitchClickListener(itemSwitchClickListener: ItemSwitchClickListener) {
+        mSwitchClickListener = itemSwitchClickListener
     }
 
+    fun setRemoveIconClickListener(itemRemoveIconClickListener: ItemRemoveIconClickListener) {
+        mRemoveIconClickListener = itemRemoveIconClickListener
+    }
 
-    interface ItemClickListener {
-        fun onItemClick(view: View, position: Int)
+    interface ItemSwitchClickListener {
+        fun onItemSwitchClick(view: View, position: Int)
+    }
+
+    interface ItemRemoveIconClickListener {
+        fun onItemRemoveIconClick(view: View, position: Int)
     }
 
 
