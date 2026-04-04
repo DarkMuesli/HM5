@@ -8,44 +8,49 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import de.darkmuesli.hm5.R
-import kotlinx.android.synthetic.main.exercise_fragment.*
+import de.darkmuesli.hm5.databinding.ExerciseFragmentBinding
 
 class ExerciseFragment : Fragment() {
+
+    private var _binding: ExerciseFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.exercise_fragment, container, false)
+        _binding = ExerciseFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exerciseViewModel.currentExercise.observe(viewLifecycleOwner) { exercise ->
-            exerciseTextView.text =
+            binding.exerciseTextView.text =
                 exercise?.name ?: context?.getString(R.string.no_exercise_found_error)
         }
 
         exerciseViewModel.exerciseLocked.observe(viewLifecycleOwner) { locked ->
-            if (locked) {
-                exerciseUnlockedIcon.visibility = View.INVISIBLE
-                exerciseLockedIcon.visibility = View.VISIBLE
-            } else {
-                exerciseUnlockedIcon.visibility = View.VISIBLE
-                exerciseLockedIcon.visibility = View.INVISIBLE
-            }
+            binding.exerciseUnlockedIcon.visibility = if (locked) View.INVISIBLE else View.VISIBLE
+            binding.exerciseLockedIcon.visibility = if (locked) View.VISIBLE else View.INVISIBLE
+
         }
 
-        exerciseCard.setOnClickListener {
+        binding.exerciseCard.setOnClickListener {
             exerciseViewModel.exerciseLocked.value = exerciseViewModel.exerciseLocked.value?.not()
         }
 
-        exerciseListIcon.setOnClickListener {
-            startActivity(Intent(activity, ExerciseListActivity::class.java))
+        binding.exerciseListIcon.setOnClickListener {
+            startActivity(Intent(requireActivity(), ExerciseListActivity::class.java))
         }
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

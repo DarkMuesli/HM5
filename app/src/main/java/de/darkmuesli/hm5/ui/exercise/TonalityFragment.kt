@@ -7,37 +7,42 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import de.darkmuesli.hm5.R
-import kotlinx.android.synthetic.main.tonality_fragment.*
+import de.darkmuesli.hm5.databinding.TonalityFragmentBinding
 
 class TonalityFragment : Fragment() {
+
+    private var _binding: TonalityFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private val exerciseViewModel: ExerciseViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.tonality_fragment, container, false)
+        _binding = TonalityFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        exerciseViewModel.currentTonality.observe(viewLifecycleOwner, { tonality ->
-            tonalityTextView.text = tonality
-        })
+        exerciseViewModel.currentTonality.observe(viewLifecycleOwner) { tonality ->
+            binding.tonalityTextView.text = tonality
+        }
 
         exerciseViewModel.tonalityLocked.observe(viewLifecycleOwner) { locked ->
-            if (locked) {
-                tonalityUnlockedIcon.visibility = View.INVISIBLE
-                tonalityLockedIcon.visibility = View.VISIBLE
-            } else {
-                tonalityUnlockedIcon.visibility = View.VISIBLE
-                tonalityLockedIcon.visibility = View.INVISIBLE
-            }
+            binding.tonalityUnlockedIcon.visibility = if (locked) View.INVISIBLE else View.VISIBLE
+            binding.tonalityLockedIcon.visibility = if (locked) View.VISIBLE else View.INVISIBLE
         }
 
-        tonalityCard.setOnClickListener {
+        binding.tonalityCard.setOnClickListener {
             exerciseViewModel.tonalityLocked.value = exerciseViewModel.tonalityLocked.value?.not()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

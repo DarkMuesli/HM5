@@ -2,7 +2,6 @@ package de.darkmuesli.hm5.ui.exercise
 
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
@@ -10,38 +9,38 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.darkmuesli.hm5.R
-import kotlinx.android.synthetic.main.activity_exercise_list.*
+import de.darkmuesli.hm5.databinding.ActivityExerciseListBinding
 
 
 class ExerciseListActivity : AppCompatActivity(),
     ExerciseRecyclerViewAdapter.ItemSwitchClickListener,
     ExerciseRecyclerViewAdapter.ItemRemoveIconClickListener {
 
+    private lateinit var binding: ActivityExerciseListBinding
     private val exerciseViewModel: ExerciseViewModel by viewModels()
     private lateinit var adapter: ExerciseRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercise_list)
+        binding = ActivityExerciseListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         adapter = ExerciseRecyclerViewAdapter(
-            this,
             exerciseViewModel.exercises.value.orEmpty().toMutableList()
         )
-        val mLayoutManager = LinearLayoutManager(this)
-        exerciseRecyclerView.layoutManager = mLayoutManager
-
-        exerciseRecyclerView.addItemDecoration(
+        val layoutManager = LinearLayoutManager(this)
+        binding.exerciseRecyclerView.layoutManager = layoutManager
+        binding.exerciseRecyclerView.addItemDecoration(
             DividerItemDecoration(
-                exerciseRecyclerView.context,
-                mLayoutManager.orientation
+                binding.exerciseRecyclerView.context,
+                layoutManager.orientation
             )
         )
+        binding.exerciseRecyclerView.adapter = adapter
 
         adapter.setSwitchClickListener(this)
         adapter.setRemoveIconClickListener(this)
-        exerciseRecyclerView.adapter = adapter
+
         exerciseViewModel.exercises.observe(this) {
             adapter.data.clear()
             adapter.data.addAll(it)
@@ -50,18 +49,17 @@ class ExerciseListActivity : AppCompatActivity(),
     }
 
     fun onAddFABClick(view: View) {
-        val builder = AlertDialog.Builder(this).apply { setTitle("Add Exercise") }
         val input = EditText(this).apply { inputType = InputType.TYPE_CLASS_TEXT }
-        with(builder) {
-            setView(input)
-            setPositiveButton("OK") { _, _ ->
+        AlertDialog.Builder(this)
+            .setTitle("Add Exercise")
+            .setView(input)
+            .setPositiveButton("OK") { _, _ ->
                 exerciseViewModel.addExercise(Exercise(input.text.toString()))
             }
-            setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.cancel()
             }
-            show()
-        }
+            .show()
     }
 
     override fun onItemSwitchClick(view: View, position: Int) =
@@ -69,6 +67,5 @@ class ExerciseListActivity : AppCompatActivity(),
 
     override fun onItemRemoveIconClick(view: View, position: Int) {
         exerciseViewModel.removeExercise(position)
-        Log.w("Muh", "Remuhving")
     }
 }
