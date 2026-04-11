@@ -20,10 +20,6 @@
             android:name=".ui.exercise.ExerciseActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.exercise.ExerciseListActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.exercise.ExerciseActivity" />
     </application>
 
 </manifest>

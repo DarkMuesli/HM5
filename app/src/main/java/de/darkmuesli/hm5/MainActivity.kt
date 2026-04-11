@@ -2,6 +2,7 @@ package de.darkmuesli.hm5
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import de.darkmuesli.hm5.databinding.ActivityMainBinding
 import de.darkmuesli.hm5.ui.exercise.ExerciseActivity

@@ -3,8 +3,6 @@ package de.darkmuesli.hm5.ui.exercise
 import android.content.Context
 import android.util.Log
 import de.darkmuesli.hm5.R
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class ExerciseRepository(val context: Context) {

@@ -65,7 +65,7 @@ class ExerciseViewModel(application: Application) : AndroidViewModel(application
 
     fun toggleExercise(index: Int) {
         exercises.value?.get(index)?.apply { active = !active }
-        exercises.value = exercises.value
+        exercises.value = exercises.value // Intentional "forcing LiveData to notify its observers"
         exerciseRepository.saveExercises(exercises.value.orEmpty())
     }
 

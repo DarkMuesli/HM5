@@ -1,6 +1,5 @@
 package de.darkmuesli.hm5.ui.exercise
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,10 @@ class ExerciseFragment : Fragment() {
         }
 
         binding.exerciseListIcon.setOnClickListener {
-            startActivity(Intent(requireActivity(), ExerciseListActivity::class.java))
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, ExerciseListFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
     }
